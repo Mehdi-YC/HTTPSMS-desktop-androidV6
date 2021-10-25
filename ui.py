@@ -11,6 +11,26 @@ root.geometry("400x250+500+300")
 
 task = []
 #------------------------------- Functions--------------------------------
+def sender(self):
+    self.secs += 1
+    if self.secs % 2 == 0:  # Every other second.
+        #winsound.Beep(FREQ, DUR)
+        print("counter : ",self.c)
+        self.c+=1
+    self.after_id = top.after(500, self.beeper)  # Check again in 1 second.
+
+def start(self):
+    self.secs = 0
+    self.sender()  # Start repeated checking.
+
+def resume(self):
+    self.sender()  
+
+def pause(self):
+    if self.after_id:
+        top.after_cancel(self.after_id)
+        self.after_id = None
+
 def SMStest():
     word = e1.get()
     if len(word)==0:
@@ -64,7 +84,7 @@ def periodically_called():
     root.after(1, periodically_called)
 #------------------------------- Functions--------------------------------
 
-label = ttk.Label(root, text = 'To-Do List')
+label = ttk.Label(root, text = 'Bulk SMS')
 e1 = ttk.Entry(root, width=21)
 
 contacts = tk.Listbox(root, height=20, selectmode='SINGLE')
